@@ -1,8 +1,23 @@
 {
+	"theme": "Theme",
+	"light": "Light",
+	"dark": "Dark",
+	"ultra": "Ultra",
+	"overview": "Overview",
+	"inbounds": "Inbounds",
+	"panelSettings": "Panel Settings",
+	"xrayConfigs": "Xray Configs",
+	"logOut": "Log Out",
 	"hello": "Hello",
 	"username": "Username",
 	"password": "Password",
 	"secretToken": "Secret Token",
 	"logIn": "Log In",
-	"ultra": "Ultra"
+	"currentUsername": "Current Username",
+	"currentPassword": "Current Password",
+	"newUsername": "New Username",
+	"newPassword": "New Password",
+	"confirm": "Confirm",
+	"authentication": "Authentication",
+	"secureLogin": "Secure Login"
 }

@@ -1,8 +1,23 @@
 {
+	"theme": "主题",
+	"light": "浅色",
+	"dark": "深色",
+	"ultra": "超级",
+	"overview": "概览",
+	"inbounds": "入站",
+	"panelSettings": "面板设置",
+	"xrayConfigs": "Xray 配置",
+	"logOut": "退出",
 	"hello": "你好",
 	"username": "用户名",
 	"password": "密码",
 	"secretToken": "密钥令牌",
 	"logIn": "登录",
-	"ultra": "超强"
+	"currentUsername": "当前用户名",
+	"currentPassword": "当前密码",
+	"newUsername": "新用户名",
+	"newPassword": "新密码",
+	"confirm": "确认",
+	"authentication": "认证",
+	"secureLogin": "安全登录"
 }

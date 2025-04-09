@@ -1,8 +1,23 @@
 {
-	"hello": "Здравствуйте",
+	"theme": "Тема",
+	"light": "Светлая",
+	"dark": "Темная",
+	"ultra": "Ультра",
+	"overview": "Обзор",
+	"inbounds": "Входящие",
+	"panelSettings": "Настройки панели",
+	"xrayConfigs": "Конфигурации Xray",
+	"logOut": "Выйти",
+	"hello": "Привет",
 	"username": "Имя пользователя",
 	"password": "Пароль",
 	"secretToken": "Секретный токен",
 	"logIn": "Войти",
-	"ultra": "Ультра"
+	"currentUsername": "Текущее имя пользователя",
+	"currentPassword": "Текущий пароль",
+	"newUsername": "Новое имя пользователя",
+	"newPassword": "Новый пароль",
+	"confirm": "Подтвердить",
+	"authentication": "Аутентификация",
+	"secureLogin": "Безопасный вход"
 }

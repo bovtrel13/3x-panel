@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { login } from '@/features/auth'
+import { useState, useEffect } from 'react' // Добавляем useEffect
+import { login } from '@/features/sidebar' // Исправляем импорт
 import { useStore } from 'effector-react'
 import { setTheme, $theme } from '@/features/theme'
 import {
@@ -14,7 +14,6 @@ import {
 } from '@heroicons/react/24/solid'
 import { useTranslation } from 'react-i18next'
 
-// Определяем анимацию прямо в компоненте
 const shakeAnimation = `
   @keyframes shake {
     0% { transform: translateX(0); }
@@ -40,20 +39,29 @@ const LoginPage = () => {
 
 	const { t, i18n } = useTranslation()
 
+	// При монтировании компонента проверяем сохраненный язык
+	useEffect(() => {
+		const savedLanguage = localStorage.getItem('selectedLanguage')
+		if (savedLanguage) {
+			i18n.changeLanguage(savedLanguage)
+			const languageName =
+				languages.find(lang => getLanguageCode(lang) === savedLanguage) ||
+				'English'
+			setSelectedLanguage(languageName)
+		}
+	}, [i18n]) // Зависимость от i18n
+
 	const handleLogin = () => {
 		if (!username || !password) {
 			if (!username) setUsernameError(true)
 			if (!password) setPasswordError(true)
-
 			setTimeout(() => {
 				setUsernameError(false)
 				setPasswordError(false)
 			}, 2000)
-
 			console.log('Username and password are required')
 			return
 		}
-
 		console.log('Logging in...')
 		login()
 	}
@@ -90,6 +98,7 @@ const LoginPage = () => {
 		setSelectedLanguage(language)
 		const langCode = getLanguageCode(language)
 		i18n.changeLanguage(langCode)
+		localStorage.setItem('selectedLanguage', langCode) // Сохраняем язык в localStorage
 		setIsLanguageDropdownOpen(false)
 	}
 
@@ -155,7 +164,7 @@ const LoginPage = () => {
 							theme === 'light'
 								? 'bg-gray-200 text-black'
 								: 'bg-dark-input text-white'
-						} ${usernameError ? ' animate-[shake_0.3s_ease-in-out]' : ''}`}
+						} ${usernameError ? 'animate-[shake_0.3s_ease-in-out]' : ''}`}
 					/>
 					<UserIcon
 						className={`absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 ${
@@ -294,40 +303,45 @@ const LoginPage = () => {
 							))}
 						</div>
 					</div>
-					<div className='flex items-center space-x-3'>
-						<SunIcon
-							className={`h-5 w-5 cursor-pointer ${
-								theme === 'light' ? 'text-yellow-400' : 'text-gray-400'
-							}`}
-							onClick={toggleTheme}
-						/>
-						<div
-							className='relative w-7 h-3.5 rounded-full cursor-pointer'
-							style={{
-								background:
-									theme === 'light'
-										? 'linear-gradient(to right, #d1d5db 0%, #a3a3a3 100%)'
-										: 'linear-gradient(to right, #4b5563 0%, #00c4b4 100%)',
-							}}
-							onClick={toggleTheme}
-						>
-							<div
-								className={`absolute top-0.5 w-2.5 h-2.5 bg-white rounded-full transition-all duration-300 shadow-md ${
-									theme === 'light' ? 'left-0.5' : 'left-3.5'
+					{/* Обновленная секция с отступами и стилизацией чекбокса */}
+					<div className='flex items-center space-x-6 py-4'>
+						<div className='flex items-center space-x-2'>
+							<SunIcon
+								className={`h-5 w-5 cursor-pointer ${
+									theme === 'light' ? 'text-yellow-400' : 'text-gray-400'
 								}`}
+								onClick={toggleTheme}
 							/>
-						</div>
-						<div className='flex items-center space-x-1'>
 							<div
-								className={`relative w-5 h-5 rounded cursor-pointer border-2 ${
+								className='relative w-7 h-3.5 rounded-full cursor-pointer'
+								style={{
+									background:
+										theme === 'light'
+											? 'linear-gradient(to right, #d1d5db 0%, #a3a3a3 100%)'
+											: 'linear-gradient(to right, #4b5563 0%, #00c4b4 100%)',
+								}}
+								onClick={toggleTheme}
+							>
+								<div
+									className={`absolute top-0.5 w-2.5 h-2.5 bg-white rounded-full transition-all duration-300 shadow-md ${
+										theme === 'light' ? 'left-0.5' : 'left-3.5'
+									}`}
+								/>
+							</div>
+						</div>
+						<div className='flex items-center space-x-2'>
+							<div
+								className={`relative w-4 h-4 rounded-md cursor-pointer border-2 transition-all duration-200 ${
 									isUltra
-										? 'bg-teal-accent border-teal-accent'
-										: 'bg-transparent border-gray-400'
+										? 'bg-teal-500 border-teal-500 shadow-lg shadow-teal-500/50'
+										: theme === 'light'
+										? 'bg-gray-200 border-gray-400 hover:border-teal-400'
+										: 'bg-gray-700 border-gray-500 hover:border-teal-600'
 								}`}
 								onClick={toggleUltra}
 							>
 								{isUltra && (
-									<CheckIcon className='h-4 w-4 text-white absolute top-0.45' />
+									<CheckIcon className='h-3 w-3 text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2' />
 								)}
 							</div>
 							<span className={`text-sm ${getUltraTextColor()}`}>
