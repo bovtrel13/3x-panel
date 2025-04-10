@@ -10,6 +10,7 @@ import {
 	ChevronDownIcon,
 	LightBulbIcon,
 	CheckIcon,
+	ChatBubbleBottomCenterIcon,
 } from '@heroicons/react/24/solid'
 import { useTranslation } from 'react-i18next'
 import { useStore } from 'effector-react'
@@ -105,6 +106,19 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
 				</div>
 			</div>
 
+			{/* Logs */}
+			<button
+				className={`w-full p-3 mb-2 text-left rounded-lg flex items-center space-x-3 transition-colors duration-200 ${
+					activeTab === 'Logs'
+						? 'bg-teal-600 text-white'
+						: 'hover:bg-gray-700 text-gray-300'
+				}`}
+				onClick={() => setActiveTab('Logs')}
+			>
+				<ChartBarIcon className='h-5 w-5' />
+				<span className='text-sm font-normal'>{t('logs')}</span>
+			</button>
+
 			{/* Overview */}
 			<button
 				className={`w-full p-3 mb-2 text-left rounded-lg flex items-center space-x-3 transition-colors duration-200 ${
@@ -114,7 +128,7 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
 				}`}
 				onClick={() => setActiveTab('Overview')}
 			>
-				<ChartBarIcon className='h-5 w-5' />
+				<ChatBubbleBottomCenterIcon className='h-5 w-5' />
 				<span className='text-sm font-normal'>{t('overview')}</span>
 			</button>
 

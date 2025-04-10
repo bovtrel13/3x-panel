@@ -3,7 +3,8 @@ import { Log } from '@/entities/log'
 
 const mockLogs: Log[] = Array.from({ length: 1000 }, (_, i) => ({
 	id: i,
-	ip_address: `183.224.218.${i % 255}`,
+	ip_address:
+		i % 2 === 0 ? `183.224.218.${i % 255}` : `250e:391:9012.${i % 1000}`,
 	country_code: 'CN',
 	phone_number: `+86 29035${i % 1000}`,
 	wechat_account: `zhengshou${i % 100}`,
