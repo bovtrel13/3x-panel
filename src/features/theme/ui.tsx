@@ -1,5 +1,5 @@
 import { useStore } from 'effector-react'
-import { setTheme, $theme } from './model' // Импортируем напрямую из model.ts
+import { setTheme, $theme } from './model'
 
 const ThemeTab = () => {
 	const theme = useStore($theme)

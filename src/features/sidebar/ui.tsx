@@ -38,7 +38,6 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
 
 	return (
 		<div className='w-48 bg-[#1a2a44] p-4 text-white h-screen flex flex-col'>
-			{/* Theme Section (Select) */}
 			<div className='mb-2'>
 				<div
 					className='flex items-center gap-2 p-3 rounded-lg cursor-pointer hover:bg-gray-700'
@@ -106,7 +105,6 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
 				</div>
 			</div>
 
-			{/* Logs */}
 			<button
 				className={`w-full p-3 mb-2 text-left rounded-lg flex items-center space-x-3 transition-colors duration-200 ${
 					activeTab === 'Logs'
@@ -119,7 +117,6 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
 				<span className='text-sm font-normal'>{t('logs')}</span>
 			</button>
 
-			{/* Overview */}
 			<button
 				className={`w-full p-3 mb-2 text-left rounded-lg flex items-center space-x-3 transition-colors duration-200 ${
 					activeTab === 'Overview'
@@ -132,7 +129,6 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
 				<span className='text-sm font-normal'>{t('overview')}</span>
 			</button>
 
-			{/* Inbounds */}
 			<button
 				className={`w-full p-3 mb-2 text-left rounded-lg flex items-center space-x-3 transition-colors duration-200 ${
 					activeTab === 'Inbounds'
@@ -145,7 +141,6 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
 				<span className='text-sm font-normal'>{t('inbounds')}</span>
 			</button>
 
-			{/* Panel Settings */}
 			<button
 				className={`w-full p-3 mb-2 text-left rounded-lg flex items-center space-x-3 transition-colors duration-200 ${
 					activeTab === 'Panel Settings'
@@ -158,7 +153,6 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
 				<span className='text-sm font-normal'>{t('panelSettings')}</span>
 			</button>
 
-			{/* Xray Configs */}
 			<button
 				className={`w-full p-3 mb-2 text-left rounded-lg flex items-center space-x-3 transition-colors duration-200 ${
 					activeTab === 'Xray Configs'
@@ -171,7 +165,6 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
 				<span className='text-sm font-normal'>{t('xrayConfigs')}</span>
 			</button>
 
-			{/* Log Out */}
 			<button
 				className={`w-full p-3 mb-2 text-left rounded-lg flex items-center space-x-3 transition-colors duration-200 ${
 					activeTab === 'Log Out'

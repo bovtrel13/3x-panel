@@ -14,7 +14,6 @@ const RestartPanel = () => {
 	const isDataConfirmed = useStore($isDataConfirmed)
 
 	const handleRestart = () => {
-		// Перезагрузка страницы без выхода на логин
 		window.location.reload()
 	}
 
@@ -46,13 +45,11 @@ const RestartPanel = () => {
 				</button>
 			</div>
 			<div className='ml-auto flex items-center bg-[#634f1f] border border-[#c0a34c] rounded-[12px] px-4 py-2'>
-				{/* Иконка с восклицательным знаком */}
 				<div className='relative mr-2'>
 					<div className='w-4 h-4 bg-[#d4a017] rounded-full flex items-center justify-center'>
 						<span className='text-black text-xs font-normal'>!</span>
 					</div>
 				</div>
-				{/* Текст предупреждения */}
 				<p className='text-xs text-white'>{t('restartWarning')}</p>
 			</div>
 		</div>

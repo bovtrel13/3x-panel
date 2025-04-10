@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react' // Добавляем useEffect
-import { login } from '@/features/sidebar' // Исправляем импорт
+import { useState, useEffect } from 'react'
+import { login } from '@/features/sidebar'
 import { useStore } from 'effector-react'
 import { setTheme, $theme } from '@/features/theme'
 import {
@@ -39,7 +39,6 @@ const LoginPage = () => {
 
 	const { t, i18n } = useTranslation()
 
-	// При монтировании компонента проверяем сохраненный язык
 	useEffect(() => {
 		const savedLanguage = localStorage.getItem('selectedLanguage')
 		if (savedLanguage) {
@@ -49,7 +48,7 @@ const LoginPage = () => {
 				'English'
 			setSelectedLanguage(languageName)
 		}
-	}, [i18n]) // Зависимость от i18n
+	}, [i18n])
 
 	const handleLogin = () => {
 		if (!username || !password) {
@@ -98,7 +97,7 @@ const LoginPage = () => {
 		setSelectedLanguage(language)
 		const langCode = getLanguageCode(language)
 		i18n.changeLanguage(langCode)
-		localStorage.setItem('selectedLanguage', langCode) // Сохраняем язык в localStorage
+		localStorage.setItem('selectedLanguage', langCode)
 		setIsLanguageDropdownOpen(false)
 	}
 
@@ -303,7 +302,7 @@ const LoginPage = () => {
 							))}
 						</div>
 					</div>
-					{/* Обновленная секция с отступами и стилизацией чекбокса */}
+
 					<div className='flex items-center space-x-6 py-4'>
 						<div className='flex items-center space-x-2'>
 							<SunIcon

@@ -39,7 +39,6 @@ const PanelSettingsTab = () => {
 
 	return (
 		<div className='p-6 bg-[#1a2a44] rounded-[20px] m-2'>
-			{/* Навигация */}
 			<div className='flex justify-between items-center mb-6'>
 				<div className='flex space-x-6'>
 					<button
@@ -85,10 +84,8 @@ const PanelSettingsTab = () => {
 				</div>
 			</div>
 
-			{/* Секция Authentication */}
 			{activeSubTab === 'Authentication' && (
 				<div className='px-6'>
-					{/* Admin Section */}
 					<div className='flex items-center justify-center mb-4'>
 						<div className='flex-1 h-px bg-gray-700'></div>
 						<h3 className='text-lg text-gray-300 mx-4'>{t('admin')}</h3>
@@ -177,7 +174,6 @@ const PanelSettingsTab = () => {
 						</div>
 					</div>
 
-					{/* Secret Token Section */}
 					<div className='mt-8'>
 						<div className='flex items-center justify-center mb-4'>
 							<div className='flex-1 h-px bg-gray-700'></div>
@@ -185,7 +181,6 @@ const PanelSettingsTab = () => {
 							<div className='flex-1 h-px bg-gray-700'></div>
 						</div>
 						<div className='grid md:grid-cols-[850px_1fr] grid-cols-[200px_1fr] gap-y-4 max-w-md ml-4'>
-							{/* Secure Login Row */}
 							<div className='flex flex-col gap-1'>
 								<p className='text-sm text-white'>{t('secureLogin')}</p>
 								<p className='text-xs text-gray-400'>
@@ -213,7 +208,6 @@ const PanelSettingsTab = () => {
 								</label>
 							</div>
 
-							{/* Secret Token Row (visible only if enabled) */}
 							{isSecureLoginEnabled && (
 								<>
 									<div className='flex flex-col gap-1 justify-start'>
@@ -243,7 +237,6 @@ const PanelSettingsTab = () => {
 								</>
 							)}
 
-							{/* Confirm Button Row */}
 							<div className='flex justify-start'>
 								<button
 									onClick={() => confirmAuth()}
@@ -257,7 +250,6 @@ const PanelSettingsTab = () => {
 				</div>
 			)}
 
-			{/* Заглушки для остальных вкладок */}
 			{activeSubTab === 'General' && (
 				<div>
 					<h3 className='text-lg font-medium text-white mb-4'>

@@ -27,8 +27,8 @@ const LogsTab = () => {
 	const logs = useStore($logs)
 	const ipFilter = useStore($ipFilter)
 	const limit = useStore($limit)
-	const [activeSubTab, setActiveSubTab] = useState('Basics') // Управление вкладками сверху
-	const [activeSideTab, setActiveSideTab] = useState('Log') // Управление боковым меню
+	const [activeSubTab, setActiveSubTab] = useState('Basics')
+	const [activeSideTab, setActiveSideTab] = useState('Log')
 	const [showModal, setShowModal] = useState<'olderThan30Days' | 'all' | null>(
 		null
 	)
@@ -50,7 +50,6 @@ const LogsTab = () => {
 
 	return (
 		<div className='p-6 bg-[#1a2a44] rounded-[20px] m-2 h-[calc(90vh-4rem)] flex flex-col'>
-			{/* Навигация сверху */}
 			<div className='flex justify-between items-center mb-6'>
 				<div className='flex space-x-6'>
 					<button
@@ -116,10 +115,8 @@ const LogsTab = () => {
 				</div>
 			</div>
 
-			{/* Основной контент с боковым меню и прокруткой */}
 			{activeSubTab === 'Basics' && (
 				<div className='flex flex-1 overflow-hidden'>
-					{/* Боковое меню */}
 					<div className='w-64 pr-4'>
 						<ul className='space-y-2'>
 							<li>
@@ -216,9 +213,7 @@ const LogsTab = () => {
 						</ul>
 					</div>
 
-					{/* Контент с прокруткой */}
 					<div className='flex-1 overflow-y-auto px-6'>
-						{/* Вкладка Log */}
 						{activeSideTab === 'Log' && (
 							<>
 								<div className='flex items-center justify-center mb-4'>
@@ -227,7 +222,6 @@ const LogsTab = () => {
 									<div className='flex-1 h-px bg-gray-700'></div>
 								</div>
 
-								{/* Заголовки колонок */}
 								<div className='grid grid-cols-4 gap-4 mb-4'>
 									<div className='flex items-center'>
 										<GlobeAltIcon className='h-5 w-5 text-gray-400 mr-2' />
@@ -249,7 +243,6 @@ const LogsTab = () => {
 									</div>
 								</div>
 
-								{/* Логи */}
 								<div className='space-y-2'>
 									{displayedLogs.map(log => (
 										<div
@@ -297,7 +290,6 @@ const LogsTab = () => {
 									))}
 								</div>
 
-								{/* Строка Load */}
 								<div className='mt-6'>
 									<div className='flex items-center justify-center mb-4'>
 										<div className='flex-1 h-px bg-gray-700'></div>
@@ -348,7 +340,6 @@ const LogsTab = () => {
 									</div>
 								</div>
 
-								{/* Кнопки очистки логов */}
 								<div className='mt-4 flex justify-center space-x-4'>
 									<button
 										className='py-2 px-4 rounded-full bg-gray-500 text-white hover:bg-gray-600 transition-colors'
@@ -364,7 +355,6 @@ const LogsTab = () => {
 									</button>
 								</div>
 
-								{/* Модальное окно подтверждения */}
 								{showModal && (
 									<ConfirmationModal
 										message={
@@ -386,7 +376,6 @@ const LogsTab = () => {
 							</>
 						)}
 
-						{/* Заглушки для остальных боковых вкладок */}
 						{activeSideTab === 'General' && (
 							<div>
 								<h3 className='text-lg font-medium text-white mb-4'>
@@ -423,7 +412,6 @@ const LogsTab = () => {
 				</div>
 			)}
 
-			{/* Заглушки для остальных верхних вкладок */}
 			{activeSubTab === 'Routing Rules' && (
 				<div className='flex-1 overflow-y-auto px-6'>
 					<h3 className='text-lg font-medium text-white mb-4'>

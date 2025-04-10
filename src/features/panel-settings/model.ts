@@ -1,6 +1,5 @@
 import { createStore, createEvent } from 'effector'
 
-// Функция для генерации случайного токена
 const generateRandomToken = () => {
 	const characters =
 		'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -11,7 +10,6 @@ const generateRandomToken = () => {
 	return token
 }
 
-// Состояние полей
 export const $currentUsername = createStore('')
 export const $currentPassword = createStore('')
 export const $newUsername = createStore('')
@@ -23,7 +21,6 @@ export const $secretToken = createStore('')
 export const $activeSubTab = createStore('Authentication')
 export const $isDataConfirmed = createStore(false)
 
-// События для изменения состояния
 export const setCurrentUsername = createEvent<string>()
 export const setCurrentPassword = createEvent<string>()
 export const setNewUsername = createEvent<string>()
@@ -37,7 +34,6 @@ export const confirmAuth = createEvent()
 export const saveData = createEvent()
 export const resetConfirmation = createEvent()
 
-// Логика обновления состояния
 $currentUsername.on(setCurrentUsername, (_, value) => value)
 $currentPassword.on(setCurrentPassword, (_, value) => value)
 $newUsername.on(setNewUsername, (_, value) => value)
@@ -51,14 +47,12 @@ $isDataConfirmed.on(confirmAuth, () => true)
 $isDataConfirmed.on(saveData, () => false)
 $isDataConfirmed.on(resetConfirmation, () => false)
 
-// Генерация токена при включении Secure Login
 $isSecureLoginEnabled.watch(enabled => {
 	if (enabled && !$secretToken.getState()) {
 		setSecretToken(generateRandomToken())
 	}
 })
 
-// Логика подтверждения аутентификации
 confirmAuth.watch(() => {
 	const authData = {
 		currentUsername: $currentUsername.getState(),
@@ -71,7 +65,6 @@ confirmAuth.watch(() => {
 	console.log('Authentication data confirmed:', authData)
 })
 
-// Логика сохранения данных
 saveData.watch(() => {
 	const authData = {
 		currentUsername: $currentUsername.getState(),
