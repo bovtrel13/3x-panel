@@ -60,10 +60,10 @@
 	"wechat": "微信",
 	"date": "日期",
 	"load": "加载",
-	"last250": "最后 250",
-	"last500": "最后 500",
-	"last1000": "最后 1000",
-	"last3000": "最后 3000",
+	"last250": "最后 (250)",
+	"last500": "最后 (500)",
+	"last1000": "最后 (1000)",
+	"last3000": "最后 (3000)",
 	"all": "全部",
 	"clearLogsOlderThan30Days": "清除所有超过30天的日志",
 	"clearAllLogs": "清除所有日志",
@@ -71,5 +71,9 @@
 	"confirmClearAllLogs": "您确定要清除所有日志吗？",
 	"close": "关闭",
 	"clear": "清除",
-	"logs": "清除"
+	"logs": "清除",
+	"protectionshield": "防護盾",
+	"basicrouting": "基本路由",
+	"resetdefault": "重設為預設值",
+	"routingrules": "路由規則"
 }

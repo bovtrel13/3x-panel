@@ -1,6 +1,6 @@
 import { useStore } from 'effector-react'
-import { $isAuthenticated } from '@/features/sidebar'
-import { $theme } from '@/features/theme'
+import { $isAuthenticated } from '@/entities/auth'
+import { $theme } from '@/entities/theme/model'
 import {
 	BrowserRouter as Router,
 	Routes,
