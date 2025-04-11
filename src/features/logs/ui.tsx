@@ -148,14 +148,14 @@ const LogsTab = () => {
           width: 8px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-          background: #d1d5db; /* Светлый фон трека */
+          background: #d1d5db; 
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #9ca3af; /* Светлый ползунок */
+          background: #9ca3af; 
           border-radius: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #6b7280; /* Более тёмный при наведении */
+          background: #6b7280; 
         }
       `
 		} else if (theme === 'dark' && isUltra) {
@@ -164,14 +164,14 @@ const LogsTab = () => {
           width: 8px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-          background: #0A1A1D; /* Тёмный фон трека для Ultra */
+          background: #0A1A1D; 
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #2A5F5A; /* Ползунок в стиле Ultra */
+          background: #2A5F5A;
           border-radius: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #3A7F7A; /* Более светлый при наведении */
+          background: #3A7F7A; 
         }
       `
 		} else {
@@ -180,14 +180,14 @@ const LogsTab = () => {
           width: 8px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-          background: #1a2a44; /* Тёмный фон трека */
+          background: #1a2a44;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #3a4b6a; /* Тёмный ползунок */
+          background: #3a4b6a; 
           border-radius: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #4a5b7a; /* Более светлый при наведении */
+          background: #4a5b7a; 
         }
       `
 		}
@@ -197,7 +197,6 @@ const LogsTab = () => {
 		<div
 			className={`p-6 ${getContainerBackground()} rounded-[20px] m-2 h-[calc(100vh-4rem)] flex flex-col`}
 		>
-			{/* Добавляем динамические стили для скроллбара */}
 			<style>{getScrollbarStyles()}</style>
 
 			<div className='flex justify-between items-center mb-6'>

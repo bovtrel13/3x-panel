@@ -1,5 +1,5 @@
 import { useStore } from 'effector-react'
-import { $isAuthenticated } from '@/entities/auth'
+import { $isAuthenticated } from '@/services/auth'
 import { $theme } from '@/entities/theme/model'
 import {
 	BrowserRouter as Router,

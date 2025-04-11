@@ -1,5 +1,5 @@
 import { createDomain, combine } from 'effector'
-import { Log } from '@/entities/log'
+import { Log } from '@/services/log'
 
 const LogsDomain = createDomain('Logs')
 

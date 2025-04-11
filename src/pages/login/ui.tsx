@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { login } from '@/entities/auth'
+import { login } from '@/services/auth'
 import { useStore } from 'effector-react'
 import { setTheme, $theme, $isUltra, setIsUltra } from '@/entities/theme/model'
 import {

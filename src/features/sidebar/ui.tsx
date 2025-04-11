@@ -1,4 +1,4 @@
-import { logout } from '@/entities/auth'
+import { logout } from '@/services/auth'
 import {
 	SunIcon,
 	DocumentTextIcon,
