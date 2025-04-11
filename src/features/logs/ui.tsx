@@ -141,10 +141,65 @@ const LogsTab = () => {
 		}
 	}
 
+	const getScrollbarStyles = () => {
+		if (theme === 'light') {
+			return `
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: #d1d5db; /* Светлый фон трека */
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: #9ca3af; /* Светлый ползунок */
+          border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: #6b7280; /* Более тёмный при наведении */
+        }
+      `
+		} else if (theme === 'dark' && isUltra) {
+			return `
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: #0A1A1D; /* Тёмный фон трека для Ultra */
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: #2A5F5A; /* Ползунок в стиле Ultra */
+          border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: #3A7F7A; /* Более светлый при наведении */
+        }
+      `
+		} else {
+			return `
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: #1a2a44; /* Тёмный фон трека */
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: #3a4b6a; /* Тёмный ползунок */
+          border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: #4a5b7a; /* Более светлый при наведении */
+        }
+      `
+		}
+	}
+
 	return (
 		<div
 			className={`p-6 ${getContainerBackground()} rounded-[20px] m-2 h-[calc(100vh-4rem)] flex flex-col`}
 		>
+			{/* Добавляем динамические стили для скроллбара */}
+			<style>{getScrollbarStyles()}</style>
+
 			<div className='flex justify-between items-center mb-6'>
 				<div className='flex space-x-6'>
 					{[
