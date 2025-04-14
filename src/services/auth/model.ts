@@ -1,42 +1,47 @@
-import { createStore, createEvent, createEffect } from 'effector'
+import { createStore, createEvent, createEffect, createDomain } from 'effector'
 
-export const $isAuthenticated = createStore<boolean>(false)
-export const setAuthenticated = createEvent<boolean>()
-export const logout = createEvent()
+const AuthDomain = createDomain('Auth')
 
-export const loginFx = createEffect(
-	({
-		username,
-		password,
-		secretToken,
-	}: {
-		username: string
-		password: string
-		secretToken?: string
-	}) => {
-		const currentUsername = localStorage.getItem('currentUsername') || 'admin'
-		const currentPassword = localStorage.getItem('currentPassword') || 'admin'
-		const currentSecretToken = localStorage.getItem('secretToken') || ''
+export const $isAuthenticated = AuthDomain.createStore<boolean>(false)
+export const setAuthenticated = AuthDomain.createEvent<boolean>()
+export const logout = AuthDomain.createEvent()
 
-		if (
-			username === currentUsername &&
-			password === currentPassword &&
-			(!currentSecretToken || secretToken === currentSecretToken)
-		) {
-			return true
-		}
-		throw new Error('Invalid credentials')
+export const loginFx = AuthDomain.createEffect<
+	{ username: string; password: string; secretToken?: string },
+	boolean,
+	Error
+>(({ username, password, secretToken }) => {
+	const currentUsername = localStorage.getItem('currentUsername') || 'admin'
+	const currentPassword = localStorage.getItem('currentPassword') || 'admin'
+	const currentSecretToken = localStorage.getItem('secretToken') || ''
+
+	if (
+		username === currentUsername &&
+		password === currentPassword &&
+		(!currentSecretToken || secretToken === currentSecretToken)
+	) {
+		return true
+	}
+	throw new Error('Invalid credentials')
+})
+
+export const saveAuthStateFx = AuthDomain.createEffect<boolean, void>(
+	isAuthenticated => {
+		localStorage.setItem('isAuthenticated', JSON.stringify(isAuthenticated))
 	}
 )
 
-$isAuthenticated.on(setAuthenticated, (_, isAuthenticated) => isAuthenticated)
-$isAuthenticated.on(loginFx.doneData, () => true)
-$isAuthenticated.on(logout, () => false)
+$isAuthenticated
+	.on(setAuthenticated, (_, isAuthenticated) => isAuthenticated)
+	.on(loginFx.doneData, () => true)
+	.on(logout, () => false)
 
+// Синхронизация с localStorage через эффект
 $isAuthenticated.watch(isAuthenticated => {
-	localStorage.setItem('isAuthenticated', JSON.stringify(isAuthenticated))
+	saveAuthStateFx(isAuthenticated)
 })
 
+// Инициализация из localStorage
 const savedAuthState = localStorage.getItem('isAuthenticated')
 if (savedAuthState) {
 	setAuthenticated(JSON.parse(savedAuthState))

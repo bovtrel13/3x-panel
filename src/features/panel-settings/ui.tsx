@@ -11,6 +11,7 @@ import {
 	$isSecureLoginEnabled,
 	$secretToken,
 	$errorMessage,
+	$notification,
 	setCurrentUsername,
 	setCurrentPassword,
 	setNewUsername,
@@ -24,6 +25,8 @@ import {
 	confirmSecureLogin,
 	$activeSubTab,
 	setActiveSubTab,
+	saveData,
+	clearNotification,
 } from './model'
 import RestartPanel from './restart-panel/ui'
 import { EyeIcon, EyeSlashIcon, ArrowPathIcon } from '@heroicons/react/24/solid'
@@ -33,6 +36,7 @@ const PanelSettingsTab = () => {
 	const { t } = useTranslation()
 	const theme = useStore($theme)
 	const isUltra = useStore($isUltra)
+	const notification = useStore($notification)
 
 	const currentUsername = useStore($currentUsername)
 	const currentPassword = useStore($currentPassword)
@@ -44,6 +48,16 @@ const PanelSettingsTab = () => {
 	const secretToken = useStore($secretToken)
 	const activeSubTab = useStore($activeSubTab)
 	const errorMessage = useStore($errorMessage)
+
+	// Автоматическое скрытие уведомления через 3 секунды
+	useEffect(() => {
+		if (notification) {
+			const timer = setTimeout(() => {
+				clearNotification()
+			}, 3000)
+			return () => clearTimeout(timer)
+		}
+	}, [notification])
 
 	const getContainerBackground = () => {
 		if (theme === 'light') {
@@ -103,9 +117,46 @@ const PanelSettingsTab = () => {
 		}
 	}
 
+	const getSaveButtonStyles = () => {
+		if (theme === 'light') {
+			return 'bg-blue-500 text-white hover:bg-blue-600'
+		} else if (theme === 'dark' && isUltra) {
+			return 'bg-blue-700 text-white hover:bg-blue-600'
+		} else {
+			return 'bg-blue-500 text-white hover:bg-blue-600'
+		}
+	}
+
 	return (
-		<div>
+		<div className='relative'>
 			<RestartPanel />
+			{notification && (
+				<div
+					className={`absolute top-4 left-4 bg-teal-600 text-white px-4 py-2 rounded-md shadow-lg flex items-center justify-between max-w-sm transition-all duration-300 ease-in-out ${
+						notification
+							? 'opacity-100 translate-y-0'
+							: 'opacity-0 -translate-y-2'
+					}`}
+					onClick={() => clearNotification()}
+				>
+					<span>{t(notification)}</span>
+					<button className='ml-4 text-white hover:text-gray-200'>
+						<svg
+							className='h-5 w-5'
+							fill='none'
+							stroke='currentColor'
+							viewBox='0 0 24 24'
+						>
+							<path
+								strokeLinecap='round'
+								strokeLinejoin='round'
+								strokeWidth='2'
+								d='M6 18L18 6M6 6l12 12'
+							/>
+						</svg>
+					</button>
+				</div>
+			)}
 			<div className={`p-6 ${getContainerBackground()} rounded-[20px] m-2`}>
 				<div className='flex justify-between items-center mb-6'>
 					<div className='flex space-x-6'>
@@ -146,6 +197,9 @@ const PanelSettingsTab = () => {
 
 				{activeSubTab === 'Authentication' && (
 					<div className='px-6'>
+						{errorMessage && (
+							<div className='text-red-500 text-sm mb-4'>{t(errorMessage)}</div>
+						)}
 						<div className='flex items-center justify-center mb-4'>
 							<div className='flex-1 h-px bg-gray-700'></div>
 							<h3 className={`text-lg mx-4 ${getTextColor()}`}>{t('admin')}</h3>
@@ -178,7 +232,7 @@ const PanelSettingsTab = () => {
 									/>
 									<button
 										onClick={() => toggleShowCurrentPassword()}
-										className='absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300 before:content-[""] before:absolute before:left-[-0.75rem] before:top-1/2 before:-translate-y-1/2 before:h-5 before:w-px before:bg-gray-400'
+										className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300 before:content-[''] before:absolute before:left-[-0.75rem] before:top-1/2 before:-translate-y-1/2 before:h-5 before:w-px before:bg-gray-400"
 									>
 										{showCurrentPassword ? (
 											<EyeSlashIcon className='h-5 w-5' />
@@ -218,7 +272,7 @@ const PanelSettingsTab = () => {
 									/>
 									<button
 										onClick={() => toggleShowNewPassword()}
-										className='absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300 before:content-[""] before:absolute before:left-[-0.75rem] before:top-1/2 before:-translate-y-1/2 before:h-5 before:w-px before:bg-gray-400'
+										className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300 before:content-[''] before:absolute before:left-[-0.75rem] before:top-1/2 before:-translate-y-1/2 before:h-5 before:w-px before:bg-gray-400"
 									>
 										{showNewPassword ? (
 											<EyeSlashIcon className='h-5 w-5' />
@@ -228,11 +282,6 @@ const PanelSettingsTab = () => {
 									</button>
 								</div>
 							</div>
-							{errorMessage && (
-								<div className='text-red-500 text-sm mt-2'>
-									{t(errorMessage)}
-								</div>
-							)}
 							<div className='relative left-[130px]'>
 								<button
 									onClick={() => confirmAuth()}
@@ -335,11 +384,6 @@ const PanelSettingsTab = () => {
 									</>
 								)}
 
-								{errorMessage && (
-									<div className='text-red-500 text-sm mt-2'>
-										{t(errorMessage)}
-									</div>
-								)}
 								<div className='flex justify-start'>
 									<button
 										onClick={() => confirmSecureLogin()}

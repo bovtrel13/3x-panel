@@ -1,6 +1,6 @@
 import { useStore } from 'effector-react'
 import { $isAuthenticated } from '@/services/auth'
-import { $theme } from '@/entities/theme/model'
+import { $theme, $isUltra } from '@/entities/theme/model'
 import {
 	BrowserRouter as Router,
 	Routes,
@@ -14,9 +14,13 @@ import '../i18n'
 const App = () => {
 	const isAuthenticated = useStore($isAuthenticated)
 	const theme = useStore($theme)
+	const isUltra = useStore($isUltra)
+
+	const themeClass =
+		theme === 'light' ? 'light-theme' : isUltra ? 'ultra-theme' : 'dark-theme'
 
 	return (
-		<div className={theme === 'ultra' ? 'ultra-theme' : 'dark-theme'}>
+		<div className={themeClass}>
 			<Router>
 				<Routes>
 					<Route

@@ -1,23 +1,40 @@
-import { createStore, createEvent } from 'effector'
+import { createStore, createEvent, createEffect, createDomain } from 'effector'
+import { sample } from 'effector'
+
+const ThemeDomain = createDomain('Theme')
 
 const savedTheme = localStorage.getItem('theme') || 'dark'
-export const $theme = createStore<string>(savedTheme)
-export const setTheme = createEvent<string>()
-$theme.on(setTheme, (_, newTheme) => {
-	localStorage.setItem('theme', newTheme)
-	return newTheme
-})
+export const $theme = ThemeDomain.createStore<string>(savedTheme)
+export const setTheme = ThemeDomain.createEvent<string>()
 
 const savedIsUltra = localStorage.getItem('isUltra') === 'true' || false
-export const $isUltra = createStore<boolean>(savedIsUltra)
-export const setIsUltra = createEvent<boolean>()
-$isUltra.on(setIsUltra, (_, value) => {
-	localStorage.setItem('isUltra', String(value))
-	return value
+export const $isUltra = ThemeDomain.createStore<boolean>(savedIsUltra)
+export const setIsUltra = ThemeDomain.createEvent<boolean>()
+
+export const saveThemeFx = ThemeDomain.createEffect<string, void>(theme => {
+	localStorage.setItem('theme', theme)
 })
 
-$theme.watch(theme => {
-	if (theme === 'light') {
-		setIsUltra(false)
-	}
+export const saveIsUltraFx = ThemeDomain.createEffect<boolean, void>(value => {
+	localStorage.setItem('isUltra', String(value))
+})
+
+$theme.on(setTheme, (_, newTheme) => newTheme)
+$isUltra.on(setIsUltra, (_, value) => value)
+
+sample({
+	clock: setTheme,
+	target: saveThemeFx,
+})
+
+sample({
+	clock: setIsUltra,
+	target: saveIsUltraFx,
+})
+
+sample({
+	clock: setTheme,
+	filter: theme => theme === 'light',
+	fn: () => false,
+	target: setIsUltra,
 })

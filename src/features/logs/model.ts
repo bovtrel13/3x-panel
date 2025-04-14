@@ -1,4 +1,4 @@
-import { createDomain, combine } from 'effector'
+import { createDomain, combine, sample } from 'effector'
 import { Log } from '@/services/log'
 
 const LogsDomain = createDomain('Logs')
@@ -10,10 +10,6 @@ export const clearAllLogs = LogsDomain.createEvent()
 
 export const fetchLogsFx = LogsDomain.createEffect<void, Log[], Error>(
 	async () => {
-		// const response = await fetch('/api/logs');
-		// if (!response.ok) throw new Error('Failed to fetch logs');
-		// return response.json();
-
 		const mockLogs: Log[] = Array.from({ length: 1000 }, (_, i) => ({
 			id: i,
 			ip_address:
@@ -52,8 +48,19 @@ export const clearLogsOlderThan30DaysFx = LogsDomain.createEffect<
 
 export const clearAllLogsFx = LogsDomain.createEffect<void, Log[], Error>(
 	async () => {
-		// await fetch('/api/logs/clear-all', { method: 'POST' });
 		return []
+	}
+)
+
+export const saveIpFilterFx = LogsDomain.createEffect<string | null, void>(
+	filter => {
+		localStorage.setItem('ipFilter', JSON.stringify(filter))
+	}
+)
+
+export const saveLimitFx = LogsDomain.createEffect<number | 'ALL', void>(
+	limit => {
+		localStorage.setItem('limit', JSON.stringify(limit))
 	}
 )
 
@@ -62,15 +69,13 @@ export const $logs = LogsDomain.createStore<Log[]>([])
 	.on(clearLogsOlderThan30DaysFx.doneData, (_, logs) => logs)
 	.on(clearAllLogsFx.doneData, () => [])
 
-export const $ipFilter = LogsDomain.createStore<string | null>(null).on(
-	setIpFilter,
-	(_, filter) => filter
-)
+export const $ipFilter = LogsDomain.createStore<string | null>(
+	JSON.parse(localStorage.getItem('ipFilter') || 'null')
+).on(setIpFilter, (_, filter) => filter)
 
-export const $limit = LogsDomain.createStore<number | 'ALL'>(250).on(
-	setLimit,
-	(_, limit) => limit
-)
+export const $limit = LogsDomain.createStore<number | 'ALL'>(
+	JSON.parse(localStorage.getItem('limit') || '250')
+).on(setLimit, (_, limit) => limit)
 
 export const $filteredLogs = combine($logs, $ipFilter, (logs, ipFilter) => {
 	if (!ipFilter) return logs
@@ -86,10 +91,22 @@ export const $displayedLogs = combine(
 	}
 )
 
-clearLogsOlderThan30Days.watch(() => {
-	clearLogsOlderThan30DaysFx()
+sample({
+	clock: setIpFilter,
+	target: saveIpFilterFx,
 })
 
-clearAllLogs.watch(() => {
-	clearAllLogsFx()
+sample({
+	clock: setLimit,
+	target: saveLimitFx,
+})
+
+sample({
+	clock: clearLogsOlderThan30Days,
+	target: clearLogsOlderThan30DaysFx,
+})
+
+sample({
+	clock: clearAllLogs,
+	target: clearAllLogsFx,
 })
