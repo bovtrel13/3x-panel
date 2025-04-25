@@ -36,12 +36,10 @@ $isAuthenticated
 	.on(loginFx.doneData, () => true)
 	.on(logout, () => false)
 
-// Синхронизация с localStorage через эффект
 $isAuthenticated.watch(isAuthenticated => {
 	saveAuthStateFx(isAuthenticated)
 })
 
-// Инициализация из localStorage
 const savedAuthState = localStorage.getItem('isAuthenticated')
 if (savedAuthState) {
 	setAuthenticated(JSON.parse(savedAuthState))

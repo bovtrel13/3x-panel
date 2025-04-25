@@ -49,7 +49,6 @@ const PanelSettingsTab = () => {
 	const activeSubTab = useStore($activeSubTab)
 	const errorMessage = useStore($errorMessage)
 
-	// Автоматическое скрытие уведомления через 3 секунды
 	useEffect(() => {
 		if (notification) {
 			const timer = setTimeout(() => {

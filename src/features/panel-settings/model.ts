@@ -69,9 +69,7 @@ export const saveSecureLoginFx = PanelSettingsDomain.createEffect<
 	}
 })
 
-export const saveDataFx = PanelSettingsDomain.createEffect<void, void>(() => {
-	// Имитация сохранения данных
-})
+export const saveDataFx = PanelSettingsDomain.createEffect<void, void>(() => {})
 
 export const initCredentialsFx = PanelSettingsDomain.createEffect<void, void>(
 	() => {
@@ -220,7 +218,6 @@ sample({
 	target: setErrorMessage,
 })
 
-// Загрузка сохраненных данных
 const savedUsername = localStorage.getItem('currentUsername')
 const savedPassword = localStorage.getItem('currentPassword')
 const savedToken = localStorage.getItem('secretToken')
