@@ -11,6 +11,7 @@
         "@testing-library/user-event": "^13.5.0",
         "effector": "^23.3.0",
         "effector-react": "^23.3.0",
+        "effector-storage": "^7.1.0",
         "i18next": "^24.2.3",
         "i18next-browser-languagedetector": "^8.0.4",
         "react": "^19.1.0",
@@ -988,6 +989,8 @@
     "effector": ["effector@23.3.0", "", {}, "sha512-ZnQ3POaNARlxT9+kxrK58PO/xmStBdxfPq0rceglENg8Ryxx/yx+1RsV/ziznrFPhLkZYc7NdDA1OKxnMW98/g=="],
 
     "effector-react": ["effector-react@23.3.0", "", { "dependencies": { "use-sync-external-store": "^1.0.0" }, "peerDependencies": { "effector": "^23.0.0", "react": ">=16.8.0 <20.0.0" } }, "sha512-QR0+x1EnbiWhO80Yc0GVF+I9xCYoxBm3t+QLB5Wg+1uY1Q1BrSWDmKvJaJJZ/+9BU4RAr25yS5J2EkdWnicu8g=="],
+
+    "effector-storage": ["effector-storage@7.1.0", "", { "peerDependencies": { "effector": "^22.4.0 || ^23.0.0" } }, "sha512-l5+RR48g7ZKUldElHnJSkzPwiMeyoO7D+C/xM6g4MVHpM9Waty8HMuIas+udSXYE1Tf9i8xm/AGBhdRrMm2FIA=="],
 
     "ejs": ["ejs@3.1.10", "", { "dependencies": { "jake": "^10.8.5" }, "bin": "bin/cli.js" }, "sha512-UeJmFfOrAQS8OJWPZ4qtgHyWExa088/MtK5UEyoJGFH67cDEXkZSviOiKRCZ4Xij0zxI3JECgYs3oKx+AizQBA=="],
 
